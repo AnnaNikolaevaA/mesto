@@ -1,9 +1,11 @@
 @import url(vendor/normalize.css);
+@import url(vendor/fonts.css);
 
 .page {
     background-color: #000;
     color: #fff;
-    padding: 45px 0 60px;
+    padding: 45px 19px 60px;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .header {
@@ -27,16 +29,19 @@
 .profile {
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
+
 }
 
 .person {
     display: flex;
+    align-items: center;
 }
 
-.person__info {
-    display: grid;
-    gap: 16px 18px;
+
+.person__first-row {
+    display: flex;
+    align-items: baseline;
 }
 
 .person__avatar {
@@ -47,14 +52,18 @@
 }
 
 .person__name {
-    margin: 0;
+    margin: 0 18px 0 0;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 1.14;
 }
 
 .person__description {
     width: 100%;
-    margin: 0;
-    grid-column-start: 1;
-    grid-column-end: 3;
+    margin: 16px 0 0;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.22;
 }
 
 .add-button {
@@ -75,4 +84,56 @@
 
 .cards {
     margin: 50px 0 66px;
+    display: grid;
+    gap: 20px 17px;
+    grid-template-columns: repeat(auto-fit, minmax(282px, auto));
+    justify-content: center;
+}
+
+.card {
+    width: 282px;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card__image {
+    display: block;
+}
+
+.card__info {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 15px 31px 21px;
+    align-items: center;
+}
+
+.card__title {
+    color: #000;
+    margin: 0;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.like {
+    border: none;
+    background-color: transparent;
+    background-image: url(./images/like.svg);
+    width: 22px;
+    height: 19px;
+}
+
+.footer {
+    max-width: 880px;
+    margin: auto;
+}
+
+.copyright {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.22;
+    color: #545454;
+    margin: 0;
 }
