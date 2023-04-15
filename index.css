@@ -4,13 +4,15 @@
 .page {
     background-color: #000;
     color: #fff;
-    padding: 45px 19px 60px;
     font-family: 'Inter', Arial, sans-serif;
+    padding: 0 19px;
+    position: relative;
+    max-width: 1280px;
 }
 
 .header {
     max-width: 880px;
-    margin: 0 auto 41px;
+    margin: 45px auto 41px;
 }
 
 .logo {
@@ -23,14 +25,13 @@
     max-width: 880px;
     margin: 0 auto;
     border-top: 1px solid #545454;
-    padding-top: 40px;
+    padding: 40px 0 0;
 }
 
 .profile {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .person {
@@ -38,10 +39,9 @@
     align-items: center;
 }
 
-
 .person__first-row {
     display: flex;
-    align-items: baseline;
+    position: relative;
 }
 
 .person__avatar {
@@ -52,10 +52,21 @@
 }
 
 .person__name {
-    margin: 0 18px 0 0;
+    margin: 0;
     font-weight: 500;
     font-size: 42px;
     line-height: 1.14;
+}
+
+.person__edit-button {
+    position: absolute;
+    border: none;
+    background-color: transparent;
+    background-image: url(./images/edit-button.svg);
+    width: 24px;
+    height: 24px;
+    right: -42px;
+    top: 3px
 }
 
 .person__description {
@@ -72,14 +83,6 @@
     background-image: url(./images/add-button.svg);
     width: 150px;
     height: 50px;
-}
-
-.person__edit-button {
-    border: none;
-    background-color: transparent;
-    background-image: url(./images/edit-button.svg);
-    width: 24px;
-    height: 24px;
 }
 
 .cards {
@@ -125,9 +128,19 @@
     height: 19px;
 }
 
+.like:hover {
+    opacity: 0.5;
+}
+
+.like:active {
+    opacity: 1;
+    background-image: url(./images/like-black.svg);
+}
+
 .footer {
     max-width: 880px;
-    margin: auto;
+    margin: 0 auto 60px;
+    padding: 0;
 }
 
 .copyright {
@@ -136,4 +149,166 @@
     line-height: 1.22;
     color: #545454;
     margin: 0;
+}
+
+
+@media screen and (max-width: 720px) {
+    .page {
+        padding: 0;
+    }
+
+    .header {
+        padding: 0 19px;
+    }
+
+    .logo {
+        margin-left: 8px;
+    }
+
+    .main {
+        padding: 40px 19px 0;
+    }
+
+    .profile {
+        flex-direction: column;
+    }
+
+    .person {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .person__avatar {
+        margin: 0 0 26px; 
+    }
+
+    .person__name {
+        font-size: 27px;
+        line-height: 1.21;  
+    }
+
+    .person__description {
+        font-size: 14px;
+        line-height: 1.21;     
+    }
+
+    .add-button {
+        margin-top: 36px;
+        width: 282px;
+        background-image: url(./images/add-button-large.svg);
+    }
+
+    .cards {
+        margin: 36px 0 48px;
+    }
+
+    .copyright {
+        font-size: 14px;
+        line-height: 1.21;    
+    }
+
+    .footer {
+        padding: 0 19px;
+    }
+
+}
+
+.popup {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none; /*скрывает попап*/
+}
+
+.popup__container {
+    position: relative;
+    background-color: #fff;
+    width: 430px;
+    height: 330px;
+    display: flex;
+    justify-items: center;
+    padding: 34px 36px 37px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.popup__cross {
+    background-image: url(./images/close-icon.svg);
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: -40px;
+    top: -40px;
+}
+
+.form-edit {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.popup__title {
+    margin: 0 0 54px;
+    color: #000;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.popup__name {
+    margin-bottom: 30px;
+}
+
+.popup__input {
+    width: 100%;
+    height: 27px;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
+}
+
+.popup__button {
+    width: 100%;
+    padding: 14px 0 18px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    border-radius: 2px;
+    margin-top: 48px;
+}
+
+@media screen and (max-width: 580px) {
+
+    .popup__container {
+        margin: 0 19px;
+        width: 282px;
+        height: 322px;
+        padding: 25px 22px;
+    }
+
+    .popup__cross {
+        width: 20px;
+        height: 20px;
+        background-size: contain;
+        right: 0;
+        top: -36px;
+    }
+
+    .popup__title {
+        font-size: 18px;
+        margin-bottom: 75px;
+    }
+
+    .popup__button {
+        margin-top: 45px;
+    }
 }

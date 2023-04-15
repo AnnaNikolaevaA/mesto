@@ -17,7 +17,9 @@
                 <img class="person__avatar" src="./images/person-avatar.jpg" alt="улыбающийся мужчина в красной шапке на фоне моря">
                 <div class="person__info">
                     <div class="person__first-row">
-                        <h1 class="person__name">Жак-Ив Кусто</h1>
+                        <div class="person__first-element">
+                            <h1 class="person__name">Жак-Ив Кусто</h1>
+                        </div>
                         <button class="person__edit-button"></button>
                     </div>
                     <h2 class="person__description">Исследователь океана</h2>
@@ -73,5 +75,16 @@
     <footer class="footer">
         <p class="copyright">&copy; 2023 Николаева Анна</p>
     </footer>
+    <div class="popup">
+        <form class="popup__container" action="">
+            <div class="popup__cross"></div>
+            <fieldset class="form-edit">
+                <p class="popup__title">Редактировать профиль</p>
+                <input class="popup__input popup__name" type="text" placeholder="Ваше имя">
+                <input class="popup__input popup__description" type="text" placeholder="Описание">
+                <button class="popup__button">Сохранить</button>
+            </fieldset> 
+        </form>
+    </div>
 </body>
 </html>
