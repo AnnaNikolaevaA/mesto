@@ -7,7 +7,6 @@
     font-family: 'Inter', Arial, sans-serif;
     padding: 0 19px;
     position: relative;
-    max-width: 1280px;
 }
 
 .header {
@@ -66,7 +65,8 @@
     width: 24px;
     height: 24px;
     right: -42px;
-    top: 3px
+    top: 16px;
+    cursor: pointer;
 }
 
 .person__description {
@@ -83,6 +83,7 @@
     background-image: url(./images/add-button.svg);
     width: 150px;
     height: 50px;
+    cursor: pointer;
 }
 
 .cards {
@@ -126,15 +127,23 @@
     background-image: url(./images/like.svg);
     width: 22px;
     height: 19px;
+    cursor: pointer;
+    -webkit-transition: opacity 0.4s ease-in-out;
+    -moz-transition: opacity 0.4s ease-in-out;
+    -o-transition: opacity 0.4s ease-in-out;
+    transition: opacity 0.4s ease-in-out;
 }
 
 .like:hover {
     opacity: 0.5;
 }
 
-.like:active {
-    opacity: 1;
+.like_value_active {
     background-image: url(./images/like-black.svg);
+}
+
+.like_value_active:hover {
+    opacity: 1;
 }
 
 .footer {
@@ -163,6 +172,10 @@
 
     .logo {
         margin-left: 8px;
+        width: 103.74px;
+        height: 24.4px;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
     .main {
@@ -185,6 +198,10 @@
     .person__name {
         font-size: 27px;
         line-height: 1.21;  
+    }
+
+    .person__edit-button {
+        top: 3px;
     }
 
     .person__description {
@@ -214,13 +231,13 @@
 }
 
 .popup {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     display: none; /*скрывает попап*/
@@ -245,6 +262,7 @@
     position: absolute;
     right: -40px;
     top: -40px;
+    cursor: pointer;
 }
 
 .form-edit {
@@ -284,6 +302,7 @@
     color: #fff;
     border-radius: 2px;
     margin-top: 48px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 580px) {
