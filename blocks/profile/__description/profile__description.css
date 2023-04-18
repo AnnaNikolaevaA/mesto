@@ -10,7 +10,7 @@
 }
 
 @media screen and (max-width: 917px) {
-    .profile__name {
+    .profile__description {
         max-width: 330px;
     }
 }
