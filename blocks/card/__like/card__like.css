@@ -1,7 +1,7 @@
-.like {
+.card__like {
     border: none;
     background-color: transparent;
-    background-image: url(../../images/like.svg);
+    background-image: url(../../../images/like.svg);
     width: 22px;
     height: 19px;
     cursor: pointer;
@@ -12,6 +12,6 @@
     flex-shrink: 0;
 }
 
-.like:hover {
+.card__like:hover {
     opacity: 0.5;
 }

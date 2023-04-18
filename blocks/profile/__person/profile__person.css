@@ -1,10 +1,10 @@
-.person {
+.profile__person {
     display: flex;
     align-items: center;
 }
 
 @media screen and (max-width: 720px) {
-    .person {
+    .profile__person {
         flex-direction: column;
         text-align: center;
     }

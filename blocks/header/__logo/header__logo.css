@@ -1,11 +1,11 @@
-.logo {
-    background-image: url(../../images/logo.svg);
+.header__logo {
+    background-image: url(../../../images/logo.svg);
     width: 142px;
     height: 33px;
 }
 
 @media screen and (max-width: 720px) {
-    .logo {
+    .header__logo {
         margin-left: 8px;
         width: 103.74px;
         height: 24.4px;

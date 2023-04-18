@@ -11,85 +11,84 @@
 
 <body class="page">
     <header class="header">
-        <div class="logo"></div>
+        <div class="header__logo"></div>
     </header>
     <main class="main">
         <section class="profile">
-            <div class="person">
-                <img class="person__avatar" src="./images/person-avatar.jpg"
+            <div class="profile__person">
+                <img class="profile__avatar" src="./images/person-avatar.jpg"
                     alt="улыбающийся мужчина в красной шапке на фоне моря">
-                <div class="person__info">
-                    <div class="person__first-row">
-                        <div class="person__first-element">
-                            <h1 class="person__name content-overflow">Жак-Ив Кусто</h1>
-                        </div>
-                        <button class="person__edit-button"></button>
+                <div class="profile__info">
+                    <div class="profile__first-row">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <button class="profile__edit-button" type="button" aria-label="редактировать профиль"></button>
                     </div>
-                    <h2 class="person__description content-overflow">Исследователь океана</h2>
+                    <p class="profile__description">Исследователь океана</p>
                 </div>
             </div>
-            <button class="add-button" type="button"></button>
+            <button class="profile__add-button" type="button" aria-label="добавить карточку места"></button>
         </section>
-        <section class="cards">
-            <div class="card">
-                <img class="card__image" src="./images/karachaevsk.jpg" alt="старая часовня в горах">
-                <div class="card__info">
-                    <h3 class="card__title content-overflow">Карачевск</h3>
-                    <button class="like"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card__image" src="./images/mountain-elbrus.jpg" alt="горный пейзаж и вид на закат">
-                <div class="card__info">
-                    <h3 class="card__title">Гора Эльбрус</h3>
-                    <button class="like"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card__image" src="./images/dombai.jpg" alt="вид из леса на заснеженную гору">
-                <div class="card__info">
-                    <h3 class="card__title">Домбай</h3>
-                    <button class="like"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card__image" src="./images/mountain-elbrus.jpg" alt="горный пейзаж и вид на закат">
-                <div class="card__info">
-                    <h3 class="card__title">Гора Эльбрус</h3>
-                    <button class="like"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card__image" src="./images/dombai.jpg" alt="вид из леса на заснеженную гору">
-                <div class="card__info">
-                    <h3 class="card__title">Домбай</h3>
-                    <button class="like"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img class="card__image" src="./images/karachaevsk.jpg" alt="старая часовня в горах">
-                <div class="card__info">
-                    <h3 class="card__title">Карачевск</h3>
-                    <button class="like"></button>
-                </div>
-            </div>
+        <section>
+            <ul class="cards">
+                <li class="card">
+                    <img class="card__image" src="./images/karachaevsk.jpg" alt="старая часовня в горах">
+                    <div class="card__info">
+                        <h2 class="card__title">Карачaевск</h2>
+                        <button class="card__like" type="button" aria-label="лайк"></button>
+                    </div>
+                </li>
+                <li class="card">
+                    <img class="card__image" src="./images/mountain-elbrus.jpg" alt="горный пейзаж и вид на закат">
+                    <div class="card__info">
+                        <h2 class="card__title">Гора Эльбрус</h2>
+                        <button class="card__like" type="button" aria-label="лайк"></button>
+                    </div>
+                </li>
+                <li class="card">
+                    <img class="card__image" src="./images/dombai.jpg" alt="вид из леса на заснеженную гору">
+                    <div class="card__info">
+                        <h2 class="card__title">Домбай</h2>
+                        <button class="card__like" type="button" aria-label="лайк"></button>
+                    </div>
+                </li>
+                <li class="card">
+                    <img class="card__image" src="./images/mountain-elbrus.jpg" alt="горный пейзаж и вид на закат">
+                    <div class="card__info">
+                        <h2 class="card__title">Гора Эльбрус</h2>
+                        <button class="card__like" type="button" aria-label="лайк"></button>
+                    </div>
+                </li>
+                <li class="card">
+                    <img class="card__image" src="./images/dombai.jpg" alt="вид из леса на заснеженную гору">
+                    <div class="card__info">
+                        <h2 class="card__title">Домбай</h2>
+                        <button class="card__like" type="button" aria-label="лайк"></button>
+                    </div>
+                </li>
+                <li class="card">
+                    <img class="card__image" src="./images/karachaevsk.jpg" alt="старая часовня в горах">
+                    <div class="card__info">
+                        <h2 class="card__title">Карачaевск</h2>
+                        <button class="card__like" type="button" aria-label="лайк"></button>
+                    </div>
+                </li>
+            </ul>
         </section>
     </main>
     <footer class="footer">
-        <p class="copyright">&copy; 2023 Николаева Анна</p>
+        <p class="footer__copyright">&copy; 2023 Николаева Анна</p>
     </footer>
     <div class="popup">
         <form class="popup__container">
-            <div class="popup__cross"></div>
-            <fieldset class="form-edit">
-                <p class="popup__title">Редактировать профиль</p>
-                <input class="popup__input popup__name" type="text" placeholder="Имя">
-                <input class="popup__input popup__description" type="text" placeholder="О себе">
-                <button class="popup__button">Сохранить</button>
-            </fieldset>
+            <button class="popup__cross" type="button"></button>
+            <h3 class="popup__title">Редактировать профиль</h3>
+            <input class="popup__input popup__input_type_name" name="name" type="text" placeholder="Имя">
+            <input class="popup__input popup__input_type_description" name="description" type="text"
+                placeholder="О себе">
+            <button class="popup__button" type="submit">Сохранить</button>
         </form>
     </div>
-    <script src="./script.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>

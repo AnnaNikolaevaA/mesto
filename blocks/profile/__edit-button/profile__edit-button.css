@@ -1,12 +1,10 @@
-.person__edit-button {
-    position: absolute;
+.profile__edit-button {
     border: none;
     background-color: transparent;
     background-image: url(../../../images/edit-button.svg);
+    background-size: contain;
     width: 24px;
     height: 24px;
-    right: -42px;
-    top: 16px;
     cursor: pointer;
     -webkit-transition: opacity 0.4s ease-in-out;
     -moz-transition: opacity 0.4s ease-in-out;
@@ -14,12 +12,14 @@
     transition: opacity 0.4s ease-in-out;
 }
 
-.person__edit-button:hover {
+.profile__edit-button:hover {
     opacity: 0.6;
 }
 
 @media screen and (max-width: 720px) {
-    .person__edit-button {
+    .profile__edit-button {
         top: 3px;
+        width: 18px;
+        height: 18px;
     }
 }

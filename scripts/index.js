@@ -1,10 +1,10 @@
-let likes = document.querySelectorAll('.like');
-let editProfile = document.querySelector('.person__edit-button');
+let likes = document.querySelectorAll('.card__like');
+let editProfile = document.querySelector('.profile__edit-button');
 let popup = document.querySelector('.popup');
-let personName = document.querySelector('.person__name');
-let personDescription = document.querySelector('.person__description');
-let nameInput = document.querySelector('.popup__name');
-let descriptionInput = document.querySelector('.popup__description');
+let personName = document.querySelector('.profile__name');
+let personDescription = document.querySelector('.profile__description');
+let nameInput = document.querySelector('.popup__input_type_name');
+let descriptionInput = document.querySelector('.popup__input_type_description');
 let closeProfile = document.querySelector('.popup__cross');
 let saveButton = document.querySelector('.popup__button');
 let formElement = document.querySelector('.popup__container');
@@ -13,10 +13,10 @@ let formElement = document.querySelector('.popup__container');
 for (let i = 0; i < likes.length; i++) {
     likes[i].addEventListener('click', function (event) {
         let like = event.target;
-        if (like.classList.contains('like_value_active')) {
-            like.classList.remove('like_value_active');
+        if (like.classList.contains('card__like_value_active')) {
+            like.classList.remove('card__like_value_active');
         } else {
-            like.classList.add('like_value_active');
+            like.classList.add('card__like_value_active');
         }
     });
 }
