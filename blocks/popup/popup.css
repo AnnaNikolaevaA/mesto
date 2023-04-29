@@ -7,5 +7,11 @@
     background-color: rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: center;
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    -webkit-transition: visibility 0.4s, opacity 0.4s ease-in-out;
+    -moz-transition: visibility 0.4s, opacity 0.4s ease-in-out;
+    -o-transition: visibility 0.4s, opacity 0.4s ease-in-out;
+    transition: visibility 0.4s, opacity 0.4s ease-in-out;
 }
