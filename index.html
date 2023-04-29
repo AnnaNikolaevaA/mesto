@@ -32,7 +32,8 @@
             <ul class="cards">
                 <template id="card">
                     <li class="card">
-                        <img class="card__image" src="" alt="старая часовня в горах">
+                        <img class="card__image" src="" alt="изображение места">
+                        <button class="card__delete" type="button" aria-label="удалить"></button>
                         <div class="card__info">
                             <h2 class="card__title"></h2>
                             <button class="card__like" type="button" aria-label="лайк"></button>
@@ -45,16 +46,35 @@
     <footer class="footer">
         <p class="footer__copyright">&copy; 2023 Николаева Анна</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_edit-profile">
         <div class="popup__container">
             <button class="popup__cross" type="button"></button>
-            <form class="popup__form" name="profile-form">
+            <form class="popup__form popup__form_edit-profile" name="profile-form">
                 <h3 class="popup__title">Редактировать профиль</h3>
                 <input class="popup__input popup__input_type_name" name="name" type="text" placeholder="Имя">
                 <input class="popup__input popup__input_type_description" name="description" type="text"
                     placeholder="О себе">
                 <button class="popup__button" type="submit">Сохранить</button>
             </form>
+        </div>
+    </div>
+    <div class="popup popup_add-card">
+        <div class="popup__container">
+            <button class="popup__cross" type="button"></button>
+            <form class="popup__form popup__form_add-card" name="profile-form">
+                <h3 class="popup__title">Новое место</h3>
+                <input class="popup__input popup__input_type_name-place" name="name" type="text" placeholder="Название">
+                <input class="popup__input popup__input_type_link" name="description" type="text"
+                    placeholder="Ссылка на картинку">
+                <button class="popup__button" type="submit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <div class="popup popup_view-card">
+        <div class="popup__card-info">
+            <button class="popup__cross" type="button"></button>
+            <img class="popup__image" src="" alt="изображение места">
+            <p class="popup__sign"></p>
         </div>
     </div>
     <script src="./scripts/index.js"></script>
