@@ -104,3 +104,55 @@ addCardForm.addEventListener('submit', (evt) => {
     popupClosed(addCardPopup);
     addCardForm.reset();
 });
+
+const overlays = document.querySelectorAll('.popup');
+
+// клик по оверлею
+for (const overlay of overlays) {
+    overlay.addEventListener('click', (evt) => {
+        if (!evt.target.closest('.popup__container')) {
+            popupClosed(evt.target.closest('.popup'));
+        }
+    });
+}
+
+// нажатие esc
+window.addEventListener('keydown', (evt) => {
+    if (evt.key == 'Escape') {
+        for (const overlay of overlays) {
+            popupClosed(overlay);
+        }
+    }
+});
+
+
+const formElements = Array.from(document.querySelectorAll('.popup__form'));
+const inputElements = Array.from(document.querySelectorAll('.popup__input'));
+
+// добавление классов ошибки
+const showInputError = (inputElement) => {
+    inputElement.classList.add('popup__input_type_error');
+    massageElement.classList.add('popup__error_visible'); //через id
+}
+
+// удаление класса ошибки
+const hideInputError = (inputElement) => {
+    inputElement.classList.remove('popup__input_type_error');
+    massageElement.classList.remove('popup__error_visible');
+}
+
+const isValid = (inputElement) => {
+    if (!inputElement.validaty.valid) {
+        showInputError(inputElement);
+    } else {
+       hideInputError(inputElement);
+    }
+}
+
+const setEventListeners = () => {
+    inputElements.forEach(inputElement => {
+        inputElement.addEventListener('input', () => {
+            isValid(inputElement);
+        })
+    })
+}
