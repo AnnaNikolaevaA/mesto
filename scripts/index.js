@@ -16,18 +16,27 @@ const viewCardPopup = document.querySelector('.popup_view-card');
 const cardTemplate = document.querySelector('#card').content;
 const cardsContainer = document.querySelector('.cards');
 
+const validationOptions = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+};
+
 // отображение начальных карточек
 initialCards.forEach(initialCard => {
     cardsContainer.append(createCard(initialCard));
 });
 
 //функция создания карточки
-function createCard (item) {
+function createCard(item) {
     const card = cardTemplate.querySelector('.card').cloneNode(true);
     const imageContainer = card.querySelector('.card__image');
     const titleContainer = card.querySelector('.card__title');
     const likeContainer = card.querySelector('.card__like');
-    
+
     imageContainer.src = item.link;
     imageContainer.alt = item.name;
     titleContainer.textContent = item.name;
@@ -44,27 +53,36 @@ function createCard (item) {
         viewCardPopup.querySelector('.popup__image').src = imageContainer.src;
         viewCardPopup.querySelector('.popup__image').alt = titleContainer.textContent;
         viewCardPopup.querySelector('.popup__sign').textContent = titleContainer.textContent;
-    
-        popupOpened(viewCardPopup);
+
+        popupOpened(validationOptions, viewCardPopup);
     });
 
     return card;
 }
 
-function popupOpened (popup) {
+function popupOpened(options, popup) {
+    if ((popup == editProfilePopup) || (popup == addCardPopup)) {
+        const inputs = Array.from(popup.querySelectorAll(options.inputSelector));
+        const button = popup.querySelector(options.submitButtonSelector);
+        toggleButtonState(options, inputs, button);
+    }
     popup.classList.add('popup_opened');
 }
 
-function popupClosed (popup) {
+function popupClosed(popup) {
+    if ((popup == editProfilePopup) || (popup == addCardPopup)) {
+        const form = popup.querySelector('.popup__form');
+        resetValidation(form);
+    }
     popup.classList.remove('popup_opened');
 }
 
 // клик по иконке edit
-function editPopup () {
+function editPopup() {
     nameInput.value = personName.textContent;
     descriptionInput.value = personDescription.textContent;
 
-    popupOpened(editProfilePopup);
+    popupOpened(validationOptions, editProfilePopup);
 }
 
 editProfile.addEventListener('click', editPopup);
@@ -79,21 +97,21 @@ for (const closeIcon of closeIcons) {
 // отправка формы
 editProfileForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    
+
     personName.textContent = nameInput.value;
     personDescription.textContent = descriptionInput.value;
-    
+
     popupClosed(editProfilePopup);
 });
 
 //клик по иконке add
 addCard.addEventListener('click', () => {
-    popupOpened(addCardPopup);
+    popupOpened(validationOptions, addCardPopup);
 });
 
 addCardForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    
+
     cardsContainer.prepend(
         createCard({
             name: placeNameInput.value,
@@ -125,34 +143,5 @@ window.addEventListener('keydown', (evt) => {
     }
 });
 
+enableValidation(validationOptions);
 
-const formElements = Array.from(document.querySelectorAll('.popup__form'));
-const inputElements = Array.from(document.querySelectorAll('.popup__input'));
-
-// добавление классов ошибки
-const showInputError = (inputElement) => {
-    inputElement.classList.add('popup__input_type_error');
-    massageElement.classList.add('popup__error_visible'); //через id
-}
-
-// удаление класса ошибки
-const hideInputError = (inputElement) => {
-    inputElement.classList.remove('popup__input_type_error');
-    massageElement.classList.remove('popup__error_visible');
-}
-
-const isValid = (inputElement) => {
-    if (!inputElement.validaty.valid) {
-        showInputError(inputElement);
-    } else {
-       hideInputError(inputElement);
-    }
-}
-
-const setEventListeners = () => {
-    inputElements.forEach(inputElement => {
-        inputElement.addEventListener('input', () => {
-            isValid(inputElement);
-        })
-    })
-}

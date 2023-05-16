@@ -51,12 +51,12 @@
             <button class="popup__cross" type="button"></button>
             <form class="popup__form popup__form_edit-profile" name="profile-form" novalidate>
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <input class="popup__input popup__input_type_name" name="name" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
-                <span class="popup__error">Вы пропустили это поле</span>
-                <input class="popup__input popup__input_type_description" name="description" type="text"
+                <input id="name-input" class="popup__input popup__input_type_name" name="name" type="text" placeholder="Имя" minlength="2" maxlength="40" required>
+                <span class="popup__error name-input-error">Вы пропустили это поле</span>
+                <input id="description-input" class="popup__input popup__input_type_description" name="description" type="text"
                     placeholder="О себе"  minlength="2" maxlength="200" required>
-                <span class="popup__error">Вы пропустили это поле</span>
-                <button class="popup__button popup__button_disabled" type="submit" disabled>Сохранить</button>
+                <span class="popup__error description-input-error">Вы пропустили это поле</span>
+                <button class="popup__button" type="submit">Сохранить</button>
             </form>
         </div>
     </div>
@@ -65,12 +65,12 @@
             <button class="popup__cross" type="button"></button>
             <form class="popup__form popup__form_add-card" name="profile-form" novalidate>
                 <h3 class="popup__title">Новое место</h3>
-                <input class="popup__input popup__input_type_name-place" name="name" type="text" placeholder="Название"  minlength="2" maxlength="30" required>
-                <span class="popup__error">Вы пропустили это поле</span>
-                <input class="popup__input popup__input_type_link" name="description" type="url"
+                <input id="name-place-input" class="popup__input popup__input_type_name-place" name="name" type="text" placeholder="Название"  minlength="2" maxlength="30" required>
+                <span class="popup__error name-place-input-error">Вы пропустили это поле</span>
+                <input id="link-input" class="popup__input popup__input_type_link" name="description" type="url"
                     placeholder="Ссылка на картинку" required>
-                <span class="popup__error">Вы пропустили это поле</span>
-                <button class="popup__button popup__button_disabled" type="submit" disabled>Сохранить</button>
+                <span class="popup__error link-input-error">Вы пропустили это поле</span>
+                <button class="popup__button" type="submit">Сохранить</button>
             </form>
         </div>
     </div>
@@ -82,6 +82,7 @@
         </div>
     </div>
     <script src="./scripts/initial-cards.js"></script>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 

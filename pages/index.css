@@ -28,32 +28,12 @@
 @import url(../blocks/popup/__cross/popup__cross.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__input/_type/popup__input_type_error.css);
 @import url(../blocks/popup/__button/popup__button.css);
+@import url(../blocks/popup/__button/_disabled/popup__button_disabled.css);
 @import url(../blocks/popup/__card-info/popup__card-info.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__sign/popup__sign.css);
 @import url(../blocks/popup/_view-card/popup_view-card.css);
-
-.popup__input_type_error {
-    border-bottom: 1px solid rgba(255, 0, 0, 1);
-}
-
-.popup__error {
-    visibility: hidden;
-    color: #ff0000;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1.25;
-    position: absolute;
-    margin-top: 5px;
-}
-
-.popup__error_visible {
-    visibility: visible;
-}
-
-.popup__button_disabled {
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    background-color: rgba(0, 0, 0, 0);
-    color: rgba(0, 0, 0, 0.2);
-}
+@import url(../blocks/popup/__error/popup__error.css);
+@import url(../blocks/popup/__error/_visible/popup__error_visible.css);
