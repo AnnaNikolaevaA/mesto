@@ -76,14 +76,16 @@ function toggleButtonStateForPopup(options, popup) {
     toggleButtonState(options, inputs, button);
 }
 
-function popupClosed(popup) {
+function closePopup(popup) {
+    window.removeEventListener('keydown', closePopupByEsc);
+    popup.classList.remove('popup_opened');
+}
+
+function resetPopupFormValidation(popup) {
     if (popup.querySelector('.popup__form')) {
         const form = popup.querySelector('.popup__form');
         resetValidation(form);
     }
-    
-    window.removeEventListener('keydown', closePopupByEsc)
-    popup.classList.remove('popup_opened');
 }
 
 // клик по иконке edit
@@ -100,7 +102,9 @@ buttonOpenPopupProfile.addEventListener('click', editPopup);
 // клик по крестику
 for (const closeIcon of buttonsClosePopup) {
     closeIcon.addEventListener('click', (evt) => {
-        popupClosed(evt.target.closest('.popup'));
+        const popup = evt.target.closest('.popup');
+        resetPopupFormValidation(popup);
+        closePopup(popup);
     });
 }
 
@@ -111,7 +115,7 @@ formEditProfile.addEventListener('submit', (evt) => {
     personName.textContent = inputName.value;
     personDescription.textContent = inputDescription.value;
 
-    popupClosed(popupEditProfile);
+    closePopup(popupEditProfile);
 });
 
 //клик по иконке add
@@ -130,7 +134,7 @@ formAddCard.addEventListener('submit', (evt) => {
         })
     );
 
-    popupClosed(popupAddCard);
+    closePopup(popupAddCard);
     formAddCard.reset();
 });
 
@@ -140,7 +144,9 @@ const overlays = document.querySelectorAll('.popup');
 for (const overlay of overlays) {
     overlay.addEventListener('click', (evt) => {
         if (!evt.target.closest('.popup__container')) {
-            popupClosed(evt.target.closest('.popup'));
+            const popup = evt.target.closest('.popup');
+            resetPopupFormValidation(popup);
+            closePopup(popup);
         }
     });
 }
@@ -149,7 +155,8 @@ for (const overlay of overlays) {
 const closePopupByEsc = (evt) => {
     if (evt.key === 'Escape') {
         const overlay = document.querySelector('.popup_opened');
-        popupClosed(overlay);
+        resetPopupFormValidation(overlay);
+        closePopup(overlay);
     };
 } 
 
