@@ -82,14 +82,13 @@ function closePopup(popup) {
 }
 
 function resetPopupFormValidation(popup) {
-    if (popup.querySelector('.popup__form')) {
-        const form = popup.querySelector('.popup__form');
-        resetValidation(form);
-    }
+    const form = popup.querySelector('.popup__form');
+    resetValidation(form);
 }
 
 // клик по иконке edit
 function editPopup() {
+    resetPopupFormValidation(popupEditProfile);
     inputName.value = personName.textContent;
     inputDescription.value = personDescription.textContent;
 
@@ -103,7 +102,6 @@ buttonOpenPopupProfile.addEventListener('click', editPopup);
 for (const closeIcon of buttonsClosePopup) {
     closeIcon.addEventListener('click', (evt) => {
         const popup = evt.target.closest('.popup');
-        resetPopupFormValidation(popup);
         closePopup(popup);
     });
 }
@@ -120,6 +118,7 @@ formEditProfile.addEventListener('submit', (evt) => {
 
 //клик по иконке add
 buttonAddCard.addEventListener('click', () => { 
+    resetPopupFormValidation(popupAddCard);
     toggleButtonStateForPopup(validationOptions, popupAddCard);
     openPopup(popupAddCard);
 });
@@ -145,7 +144,6 @@ for (const overlay of overlays) {
     overlay.addEventListener('click', (evt) => {
         if (!evt.target.closest('.popup__container')) {
             const popup = evt.target.closest('.popup');
-            resetPopupFormValidation(popup);
             closePopup(popup);
         }
     });
@@ -155,7 +153,6 @@ for (const overlay of overlays) {
 const closePopupByEsc = (evt) => {
     if (evt.key === 'Escape') {
         const overlay = document.querySelector('.popup_opened');
-        resetPopupFormValidation(overlay);
         closePopup(overlay);
     };
 } 
