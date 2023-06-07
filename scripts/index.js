@@ -1,3 +1,7 @@
+import initialCards from './initial-cards.js';
+import Card from './card.js';
+import FormValidator from './validate.js';
+
 const buttonOpenPopupProfile = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const popupAddCard = document.querySelector('.popup_add-card');
@@ -11,11 +15,7 @@ const formAddCard = document.querySelector('.popup__form_add-card');
 const inputPlaceName = document.querySelector('.popup__input_type_name-place');
 const inputPictureLink = document.querySelector('.popup__input_type_link');
 const buttonAddCard = document.querySelector('.profile__add-button');
-const popupViewCard = document.querySelector('.popup_view-card');
-const templateCard = document.querySelector('#card').content;
 const containerCards = document.querySelector('.cards');
-const imagePopup = popupViewCard.querySelector('.popup__image');
-const signPopup = popupViewCard.querySelector('.popup__sign');
 
 const validationOptions = {
     formSelector: '.popup__form',
@@ -28,42 +28,11 @@ const validationOptions = {
 
 // отображение начальных карточек
 initialCards.forEach(initialCard => {
-    containerCards.append(createCard(initialCard));
+    const card = new Card(initialCard, '.card', openPopup);
+    const cardElement = card.generateCard();
+
+    containerCards.append(cardElement);
 });
-
-function changeLike(evt) {
-    evt.target.classList.toggle('card__like_value_active');
-}
-
-function removeCard(evt) {
-    evt.target.closest('.card').remove();
-}
-
-function openPopupViewCard(evt) {
-    imagePopup.src = evt.target.src;
-    imagePopup.alt = evt.target.closest('.card').querySelector('.card__title').textContent;
-    signPopup.textContent = evt.target.closest('.card').querySelector('.card__title').textContent;
-
-    openPopup(popupViewCard);
-}
-
-//функция создания карточки
-function createCard(item) {
-    const card = templateCard.querySelector('.card').cloneNode(true);
-    const imageContainer = card.querySelector('.card__image');
-    const titleContainer = card.querySelector('.card__title');
-    const likeContainer = card.querySelector('.card__like');
-
-    imageContainer.src = item.link;
-    imageContainer.alt = item.name;
-    titleContainer.textContent = item.name;
-
-    likeContainer.addEventListener('click', changeLike);
-    card.querySelector('.card__delete').addEventListener('click', removeCard);
-    imageContainer.addEventListener('click', openPopupViewCard);
-
-    return card;
-}
 
 function openPopup(popup) {
     window.addEventListener('keydown', closePopupByEsc)
@@ -73,7 +42,7 @@ function openPopup(popup) {
 function toggleButtonStateForPopup(options, popup) {
     const inputs = Array.from(popup.querySelectorAll(options.inputSelector));
     const button = popup.querySelector(options.submitButtonSelector);
-    toggleButtonState(options, inputs, button);
+    FormValidator.toggleButtonState(options, inputs, button);
 }
 
 function closePopup(popup) {
@@ -83,7 +52,7 @@ function closePopup(popup) {
 
 function resetPopupFormValidation(popup) {
     const form = popup.querySelector('.popup__form');
-    resetValidation(form);
+    FormValidator.resetValidation(form);
 }
 
 // клик по иконке edit
@@ -126,12 +95,15 @@ buttonAddCard.addEventListener('click', () => {
 formAddCard.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    containerCards.prepend(
-        createCard({
-            name: inputPlaceName.value,
-            link: inputPictureLink.value
-        })
-    );
+    const newCard = {
+        name: inputPlaceName.value,
+        link: inputPictureLink.value
+    }
+
+    const card = new Card(newCard, '.card', openPopup);
+    const cardElement = card.generateCard();
+
+    containerCards.prepend(cardElement);
 
     closePopup(popupAddCard);
     formAddCard.reset();
@@ -157,5 +129,13 @@ const closePopupByEsc = (evt) => {
     };
 } 
 
-enableValidation(validationOptions);
+
+document.querySelectorAll('.popup__form').forEach(form => {
+    const formValidator = new FormValidator(validationOptions, form);
+    formValidator.enableValidation();
+})
+
+
+
+
 
