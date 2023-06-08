@@ -1,4 +1,5 @@
 class FormValidator {
+    
     constructor(options, form) {
         this._options = options;
         this._formSelector = options.formSelector;
@@ -7,8 +8,9 @@ class FormValidator {
         this._inactiveButtonClass = options.inactiveButtonClass;
         this._inputErrorClass = options.inputErrorClass;
         this._errorClass = options.errorClass;
-
         this._form = form;
+        this._inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
+        this._button = this._form.querySelector(this._submitButtonSelector);
     }
 
     // добавление классов ошибки
@@ -34,52 +36,45 @@ class FormValidator {
         }
     }
 
-    static isInvalidForm = (inputs) => {
-        return inputs.some((input) => {
+    _isInvalidForm = () => {
+        return this._inputs.some((input) => {
             return !input.validity.valid;
         })
     }
 
-    static toggleButtonState = (options, inputs, button) => {
-        if (FormValidator.isInvalidForm(inputs)) {
-            button.classList.add(options.inactiveButtonClass);
-            button.disabled = true;
+    toggleButtonState = () => {
+        if (this._isInvalidForm()) {
+            this._button.classList.add(this._inactiveButtonClass);
+            this._button.disabled = true;
         } else {
-            button.classList.remove(options.inactiveButtonClass);
-            button.disabled = false;
+            this._button.classList.remove(this._inactiveButtonClass);
+            this._button.disabled = false;
         }
     }
 
     // добавление слушателей
     _setEventListeners = () => {
-        const inputs = Array.from(this._form.querySelectorAll(this._inputSelector));
-        const button = this._form.querySelector(this._submitButtonSelector);
-        inputs.forEach(input => {
+        this._inputs.forEach(input => {
             input.addEventListener('input', () => {
                 const error = this._form.querySelector(`.${input.id}-error`);
                 this._validateInput(input, error);
-                FormValidator.toggleButtonState(this._options, inputs, button);
+                this.toggleButtonState();
             });
         });
     }
 
-    static resetValidation(form) {
-        const inputs = Array.from(form.querySelectorAll('.popup__input'));
-        const button = form.querySelector('.popup__button');
-    
-        inputs.forEach(input => {
+    resetValidation() {
+        this._inputs.forEach(input => {
             input.classList.remove('popup__input_type_error');
-            button.classList.remove('popup__button_disabled');
-            const error = form.querySelector(`.${input.id}-error`);
+            // this._button.classList.remove('popup__button_disabled');
+            const error = this._form.querySelector(`.${input.id}-error`);
             error.textContent = '';
         });
     
-        form.reset();
+        this._form.reset();
     }
 
     enableValidation() {
-        // const forms = Array.from(document.querySelectorAll(this._formSelector));
-    
         // добавление слушателей для каждой формы
         this._setEventListeners();
     }
