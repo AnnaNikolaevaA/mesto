@@ -65,8 +65,7 @@ class FormValidator {
 
     resetValidation() {
         this._inputs.forEach(input => {
-            input.classList.remove('popup__input_type_error');
-            // this._button.classList.remove('popup__button_disabled');
+            input.classList.remove(this._inputErrorClass);
             const error = this._form.querySelector(`.${input.id}-error`);
             error.textContent = '';
         });
