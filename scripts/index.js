@@ -32,27 +32,113 @@ editProfileFormValidator.enableValidation();
 const addCardFormValidator = new FormValidator(validationOptions, formAddCard);
 addCardFormValidator.enableValidation();
 
+class Popup {
+    constructor(selector) {
+        this._container = document.querySelector(selector);
+        console.log(this._container)
+    }
+
+    open() {
+        window.addEventListener('keydown', this._handleEscClose.bind(this));
+        this._container.classList.add('popup_opened');
+    }
+
+    close() {
+        window.removeEventListener('keydown', this._handleEscClose.bind(this));
+        this._container.classList.remove('popup_opened');
+    }
+
+    // нажатие esc
+    _handleEscClose(evt) {
+        if (evt.key === 'Escape') {
+            this.close();
+        };
+    }
+
+    setEventListeners() {
+        // клик по оверлею
+        this._container.addEventListener('click', (evt) => {
+            if (evt.target === evt.currentTarget) {
+                this.close();
+            }
+        });
+        // клик по крестику
+        this._container.querySelector('.popup__cross').addEventListener('click', this.close.bind(this));
+    }
+}
+
+class PopupWithImage extends Popup {
+    constructor(selector) {
+        super(selector);
+    }
+
+    open(name, src) {
+        const imagePopup = this._container.querySelector('.popup__image');
+        const signPopup = this._container.querySelector('.popup__sign');
+        imagePopup.src = src;
+        imagePopup.alt = name;
+        signPopup.textContent = name;
+    
+        super.open();
+    }
+}
+
+class PopupWithForm extends Popup {
+
+    constructor(selector) {
+        super(selector)
+    }
+
+    close() {
+
+    }
+
+    setEventListeners() {
+
+    }
+
+    _getInputValues() {
+
+    }
+}
+
+const popupWithImage = new PopupWithImage('.popup_view-card');
+popupWithImage.setEventListeners();
+
+class Section {
+    constructor({items, renderer}, selector) {
+        this._items = items;
+        this._renderer = renderer;
+        this._container = document.querySelector(selector);
+    }
 
 // отображение начальных карточек
-initialCards.forEach(initialCard => {
-    containerCards.append(createCard(initialCard));
-});
+    renderedItems() {
+        this._items.forEach(item => {
+            this._renderer(item);
+        })
+    }
+// отображение карточки добавленной пользователем
+    addItem(element) {
+        this._container.prepend(element);
+    }
+}
+
+//создание и отрисовка карточки
+function renderCard(card) {
+    this._container.append(createCard(card));
+}
+
+
 
 function createCard(element) {
-    const card = new Card(element, '.card', openPopup);
+    const card = new Card(element, '.card', popupWithImage.open.bind(popupWithImage));
     const cardElement = card.generateCard();
     return cardElement;
 }
 
-function openPopup(popup) {
-    window.addEventListener('keydown', closePopupByEsc)
-    popup.classList.add('popup_opened');
-}
-
-function closePopup(popup) {
-    window.removeEventListener('keydown', closePopupByEsc);
-    popup.classList.remove('popup_opened');
-}
+const cardsSection = new Section({items: initialCards, renderer: renderCard}, '.cards');
+cardsSection.renderedItems();
 
 // клик по иконке edit
 function editPopup() {
@@ -65,14 +151,6 @@ function editPopup() {
 }
 
 buttonOpenPopupProfile.addEventListener('click', editPopup);
-
-// клик по крестику
-for (const closeIcon of buttonsClosePopup) {
-    closeIcon.addEventListener('click', (evt) => {
-        const popup = evt.target.closest('.popup');
-        closePopup(popup);
-    });
-}
 
 // отправка формы
 formEditProfile.addEventListener('submit', (evt) => {
@@ -99,31 +177,13 @@ formAddCard.addEventListener('submit', (evt) => {
         link: inputPictureLink.value
     }
 
-    containerCards.prepend(createCard(newCard));
+    cardsSection.addItem(createCard(newCard));
+    // containerCards.prepend(createCard(newCard));
 
     closePopup(popupAddCard);
     formAddCard.reset();
 });
 
-const overlays = document.querySelectorAll('.popup');
-
-// клик по оверлею
-for (const overlay of overlays) {
-    overlay.addEventListener('click', (evt) => {
-        if (evt.target === evt.currentTarget) {
-            const popup = evt.target.closest('.popup');
-            closePopup(popup);
-        }
-    });
-}
-
-// нажатие esc
-const closePopupByEsc = (evt) => {
-    if (evt.key === 'Escape') {
-        const overlay = document.querySelector('.popup_opened');
-        closePopup(overlay);
-    };
-} 
 
 
 

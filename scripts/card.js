@@ -1,9 +1,9 @@
 class Card {
-    constructor(data, templateSelector, openPopup) {
+    constructor(data, templateSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
-        this._openPopup = openPopup;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -37,17 +37,6 @@ class Card {
         this._element = null;
     }
 
-    _openPopupViewCard() {
-        const popupViewCard = document.querySelector('.popup_view-card');
-        const imagePopup = popupViewCard.querySelector('.popup__image');
-        const signPopup = popupViewCard.querySelector('.popup__sign');
-        imagePopup.src = this._link;
-        imagePopup.alt = this._name;
-        signPopup.textContent = this._name;
-    
-        this._openPopup(popupViewCard);
-    }
-
     _setEventListeners() {
         this._like.addEventListener('click',  () => {
             this._changeLike()
@@ -56,7 +45,7 @@ class Card {
               this._removeCard()
         });
         this._image.addEventListener('click',  () => {
-              this._openPopupViewCard()
+              this._handleCardClick(this._name, this._link)
         });
     }
 }
