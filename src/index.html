@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 
@@ -16,7 +15,7 @@
     <main class="main">
         <section class="profile">
             <div class="profile__person">
-                <img class="profile__avatar" src="./images/person-avatar.jpg"
+                <img class="profile__avatar" src="<%=require('./images/person-avatar.jpg')%>"
                     alt="улыбающийся мужчина в красной шапке на фоне моря">
                 <div class="profile__info">
                     <div class="profile__first-row">
@@ -81,7 +80,6 @@
             <p class="popup__sign"></p>
         </div>
     </div>
-    <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
