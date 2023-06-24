@@ -5,6 +5,10 @@ class Section {
         this._container = document.querySelector(selector);
     }
 
+    appendItem(element) {
+        this._container.append(element);
+    }
+
 // отображение начальных карточек
     renderedItems() {
         this._items.forEach(item => {
