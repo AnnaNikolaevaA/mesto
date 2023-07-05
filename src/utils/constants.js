@@ -1,5 +1,6 @@
 export const buttonOpenPopupProfile = document.querySelector('.profile__edit-button');
 export const buttonAddCard = document.querySelector('.profile__add-button');
+export const avatar = document.querySelector('.profile__avatar');
 
 export const validationOptions = {
     formSelector: '.popup__form',

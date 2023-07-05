@@ -4,6 +4,7 @@ import initialCards from '../utils/initial-cards.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
+import UserAvatar from '../components/UserAvatar.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
@@ -11,7 +12,8 @@ import Section from '../components/Section.js';
 import {
     buttonOpenPopupProfile,
     buttonAddCard,
-    validationOptions
+    validationOptions,
+    avatar,
 } from '../utils/constants.js';
 
 const formValidators = {}
@@ -30,6 +32,7 @@ formList.forEach((form) => {
 enableValidation(validationOptions);
 
 const userInfo = new UserInfo('.profile__name', '.profile__description');
+const userAvatar = new UserAvatar('.profile__avatar-pic')
 
 const popupAddCard = new PopupWithForm('.popup_add-card', function(newCard) {
     cardsSection.addItem(createCard(newCard));
@@ -40,6 +43,11 @@ const popupEditProfile = new PopupWithForm('.popup_edit-profile', function(newPr
     userInfo.setUserInfo(newProfile);
 });
 popupEditProfile.setEventListeners();
+
+const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', function(newAvatar) {
+    userAvatar.changeUserAvatar(newAvatar);
+});
+popupChangeAvatar.setEventListeners();
 
 const popupWithImage = new PopupWithImage('.popup_view-card');
 popupWithImage.setEventListeners();
@@ -76,4 +84,12 @@ buttonAddCard.addEventListener('click', () => {
     formValidator.resetValidation();
     formValidator.toggleButtonState();
     popupAddCard.open();
+});
+
+//клик по аватарке
+avatar.addEventListener('click', () => {
+    const formValidator = formValidators['avatar-form'];
+    formValidator.resetValidation();
+    formValidator.toggleButtonState();
+    popupChangeAvatar.open();
 });
