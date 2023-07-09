@@ -38,7 +38,10 @@
                         <button class="card__delete" type="button" aria-label="удалить"></button>
                         <div class="card__info">
                             <h2 class="card__title"></h2>
-                            <button class="card__like" type="button" aria-label="лайк"></button>
+                            <div class="card__like-container">
+                                <button class="card__like" type="button" aria-label="лайк"></button>
+                                <p class="card__count">0</p>
+                            </div>
                         </div>
                     </li>
                 </template>
@@ -93,6 +96,13 @@
                 <span class="popup__error link-avatar-input-error">Вы пропустили это поле</span>
                 <button class="popup__button" type="submit">Сохранить</button>
             </form>
+        </div>
+    </div>
+    <div class="popup popup_confirmation">
+        <div class="popup__container">
+            <button class="popup__cross" type="button"></button>
+            <h3 class="popup__title popup__title_type_confirmation">Вы уверены?</h3>
+            <button class="popup__button popup__button_type_confirmation" type="button">Да</button>
         </div>
     </div>
 </body>

@@ -7,6 +7,7 @@ import UserInfo from '../components/UserInfo.js';
 import UserAvatar from '../components/UserAvatar.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import Section from '../components/Section.js';
 
 import {
@@ -49,6 +50,12 @@ const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', function(new
 });
 popupChangeAvatar.setEventListeners();
 
+const popupDeleteCard = new PopupWithConfirmation('.popup_confirmation', function(card) {
+    card.removeCard();
+});
+popupDeleteCard.setEventListeners();
+
+
 const popupWithImage = new PopupWithImage('.popup_view-card');
 popupWithImage.setEventListeners();
 
@@ -58,9 +65,13 @@ function renderCard(card) {
 }
 
 function createCard(element) {
-    const card = new Card(element, '.card', popupWithImage.open.bind(popupWithImage));
+    const card = new Card(element, '.card', popupWithImage.open.bind(popupWithImage), openConfirmationPopup);
     const cardElement = card.generateCard();
     return cardElement;
+}
+
+function openConfirmationPopup(card) {
+    popupDeleteCard.open(card);
 }
 
 const cardsSection = new Section({items: initialCards, renderer: renderCard}, '.cards');
@@ -93,3 +104,5 @@ avatar.addEventListener('click', () => {
     formValidator.toggleButtonState();
     popupChangeAvatar.open();
 });
+
+//клик по иконке удалить
