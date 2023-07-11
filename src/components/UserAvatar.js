@@ -4,7 +4,7 @@ class UserAvatar {
     }
     
     changeUserAvatar(data) {
-        this._link.src = data.link;
+        this._link.src = data.avatar;
     }
 }
 

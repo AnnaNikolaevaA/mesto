@@ -3,5 +3,6 @@
     height: calc(100% - 2px);
     margin: 1px;
     border-radius: 50%;
-    display: block
+    display: block;
+    object-fit: cover;
 }
