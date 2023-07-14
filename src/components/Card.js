@@ -1,11 +1,15 @@
 class Card {
-    constructor(data, templateSelector, handleCardClick, handleDeleteButtonClick) {
+    constructor(data, templateSelector, handleCardClick, handleDeleteButtonClick, api, userId) {
+        this._ownerId = data.owner._id;
         this._name = data.name;
         this._link = data.link;
         this._likes = data.likes;
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
         this._handleDeleteButtonClick = handleDeleteButtonClick;
+        this._api = api;
+        this._id = data._id;
+        this._userId = userId;
     }
 
     _getTemplate() {
@@ -21,6 +25,15 @@ class Card {
         this._delete = this._element.querySelector('.card__delete');
         this._image = this._element.querySelector('.card__image');
         this._likeCount = this._element.querySelector('.card__count');
+        if (this._likes.map((obj) => obj._id).indexOf(this._userId) !== -1) {
+            this._likeButton.classList.add('card__like_value_active');
+        }
+
+        if (this._ownerId !== this._userId) {
+            this._delete.remove();
+        }
+
+
 
         this._image.src = this._link;
         this._image.alt = this._name;
@@ -36,26 +49,34 @@ class Card {
         this._likeButton.classList.toggle('card__like_value_active');
 
         if (this._likeButton.classList.contains('card__like_value_active')) {
-            this._likes.push('Твт');
-            this._likeCount.textContent = this._likes.length;
+            this._api.addLike(this._id).then((card) => {
+                this._likes = card.likes;
+                this._likeCount.textContent = this._likes.length;
+            })
         } else {
-            this._likes = this._likes.filter(val => val !== 'Твт');
-            this._likeCount.textContent = this._likes.length;
+            this._api.deleteLike(this._id).then((card) => {
+                this._likes = card.likes;
+                this._likeCount.textContent = this._likes.length;
+            })
         }
     }
 
     removeCard() {
-        this._element.remove();
-        this._element = null;
+        this._api.deleteCard(this._id).then(() => {
+            this._element.remove();
+            this._element = null;
+        })
     }
 
     _setEventListeners() {
         this._likeButton.addEventListener('click',  () => {
             this._changeLike()
         });
-        this._delete.addEventListener('click', () => {
-            this._handleDeleteButtonClick(this)
-        });
+        if (this._delete) {
+            this._delete.addEventListener('click', () => {
+                this._handleDeleteButtonClick(this)
+            });
+        }
         this._image.addEventListener('click',  () => {
               this._handleCardClick(this._name, this._link)
         });

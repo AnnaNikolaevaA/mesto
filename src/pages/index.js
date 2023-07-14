@@ -1,6 +1,5 @@
 import './index.css';
 
-// import initialCards from '../utils/initial-cards.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import UserInfo from '../components/UserInfo.js';
@@ -26,10 +25,6 @@ const api = new Api({
     }
   });
 
-// api.getUserInfo();
-// const initialCards = api.getCards();
-// api.changeUserInfo();
-
 const formValidators = {}
 
 const enableValidation = (options) => {
@@ -52,13 +47,19 @@ api.getUserInfo().then((user) => {
     userInfo.setUserInfo(user);
     userAvatar.changeUserAvatar(user);
 
-    const popupEditProfile = new PopupWithForm('.popup_edit-profile', function(newProfile) {
+    const popupEditProfile = new PopupWithForm('.popup_edit-profile', function(newProfile, close) {
         userInfo.setUserInfo(newProfile);
+        api.changeUserInfo(newProfile).then(() => {
+            close();
+        })
     });
     popupEditProfile.setEventListeners();
     
-    const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', function(newAvatar) {
+    const popupChangeAvatar = new PopupWithForm('.popup_change-avatar', function(newAvatar, close) {
         userAvatar.changeUserAvatar(newAvatar);
+        api.changeUserAvatar(newAvatar).then(() => {
+            close();
+        })
     });
     popupChangeAvatar.setEventListeners();
 
@@ -82,50 +83,50 @@ api.getUserInfo().then((user) => {
         formValidator.toggleButtonState();
         popupChangeAvatar.open();
     });
-
+    return user;
+}).then((user) => {
+    api.getCards().then(initialCards => {
+        //создание и отрисовка карточки
+        function renderCard(card) {
+            cardsSection.appendItem(createCard(card));
+        }
+    
+        function createCard(element) {
+            const card = new Card(element, '.card', popupWithImage.open.bind(popupWithImage), openConfirmationPopup, api, user._id);
+            const cardElement = card.generateCard();
+            return cardElement;
+        }
+    
+        const cardsSection = new Section({items: initialCards, renderer: renderCard}, '.cards');
+        cardsSection.renderedItems();
+    
+        const popupAddCard = new PopupWithForm('.popup_add-card', function(data, close) {
+            api.addCard(data).then((newCard) => {
+                cardsSection.addItem(createCard(newCard));
+                close();
+            })
+        });
+        popupAddCard.setEventListeners();
+    
+        //клик по иконке add
+        buttonAddCard.addEventListener('click', () => { 
+            const formValidator = formValidators['card-form'];
+            formValidator.resetValidation();
+            formValidator.toggleButtonState();
+            popupAddCard.open();
+        });
+    })    
 })
 
 
-const popupDeleteCard = new PopupWithConfirmation('.popup_confirmation', function(card) {
-    card.removeCard();
-});
+const popupDeleteCard = new PopupWithConfirmation('.popup_confirmation');
 popupDeleteCard.setEventListeners();
 
 
 const popupWithImage = new PopupWithImage('.popup_view-card');
 popupWithImage.setEventListeners();
 
-function createCard(element) {
-    const card = new Card(element, '.card', popupWithImage.open.bind(popupWithImage), openConfirmationPopup);
-    const cardElement = card.generateCard();
-    return cardElement;
-}
-
 function openConfirmationPopup(card) {
     popupDeleteCard.open(card);
 }
-
-api.getCards().then(initialCards => {
-    //создание и отрисовка карточки
-    function renderCard(card) {
-        cardsSection.appendItem(createCard(card));
-    }
-
-    const cardsSection = new Section({items: initialCards, renderer: renderCard}, '.cards');
-    cardsSection.renderedItems();
-
-    const popupAddCard = new PopupWithForm('.popup_add-card', function(newCard) {
-        cardsSection.addItem(createCard(newCard));
-    });
-    popupAddCard.setEventListeners();
-
-    //клик по иконке add
-    buttonAddCard.addEventListener('click', () => { 
-        const formValidator = formValidators['card-form'];
-        formValidator.resetValidation();
-        formValidator.toggleButtonState();
-        popupAddCard.open();
-    });
-})
-
 
