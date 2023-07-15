@@ -70,7 +70,7 @@ class FormValidator {
             error.textContent = '';
         });
     
-        this._form.reset();
+        return this._form;
     }
 
     enableValidation() {

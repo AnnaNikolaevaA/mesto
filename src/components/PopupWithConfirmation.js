@@ -7,12 +7,13 @@ class PopupWithConfirmation extends Popup {
         this._button = this._container.querySelector('.popup__button');
     }
     
-    open(card) {
+    open(handleDeleteCard) {
         super.open();
         const deleteCard = () => {
-            card.removeCard();
-            super.close();
-            this._button.removeEventListener('click', deleteCard)
+            handleDeleteCard().then(() => {
+                super.close();
+                this._button.removeEventListener('click', deleteCard)
+            })
         }
         this._button.addEventListener('click', deleteCard)
     }

@@ -13,7 +13,6 @@ class PopupWithForm extends Popup {
     close() {
         super.close();
         this._form.reset();
-        this._button.textContent = 'Сохранить';
     }
 
     setEventListeners() {
@@ -21,7 +20,10 @@ class PopupWithForm extends Popup {
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._button.textContent = 'Сохранение...';
-            this._handleFormSubmit(this._getInputValues(), this.close.bind(this));
+            this._handleFormSubmit(this._getInputValues())
+            .finally(() => {
+                this._button.textContent = 'Сохранить';
+            });
         });
     }
 
