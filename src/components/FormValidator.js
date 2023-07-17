@@ -69,8 +69,6 @@ class FormValidator {
             const error = this._form.querySelector(`.${input.id}-error`);
             error.textContent = '';
         });
-    
-        return this._form;
     }
 
     enableValidation() {

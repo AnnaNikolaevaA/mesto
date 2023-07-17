@@ -57,6 +57,7 @@ Promise.all([
         return api.changeUserInfo(newProfile).then(() => {
             this.close();
         })
+        .catch(handleError);
     });
     popupEditProfile.setEventListeners();
     
@@ -65,13 +66,14 @@ Promise.all([
         return api.changeUserAvatar(newAvatar).then(() => {
             this.close();
         })
+        .catch(handleError);
     });
     popupChangeAvatar.setEventListeners();
 
     // клик по иконке edit
     function editPopup() {
         const formValidator = formValidators['profile-form'];
-        formValidator.resetValidation().reset();
+        formValidator.resetValidation();
         popupEditProfile.setInputValues(userInfo.getUserInfo());
 
         formValidator.toggleButtonState();
@@ -83,7 +85,7 @@ Promise.all([
     //клик по аватарке
     avatar.addEventListener('click', () => {
         const formValidator = formValidators['avatar-form'];
-        formValidator.resetValidation().reset();
+        formValidator.resetValidation();
         formValidator.toggleButtonState();
         popupChangeAvatar.open();
     });
@@ -105,13 +107,14 @@ Promise.all([
             cardsSection.addItem(createCard(newCard));
             this.close();
         })
+        .catch(handleError);
     });
     popupAddCard.setEventListeners();
 
     //клик по иконке add
     buttonAddCard.addEventListener('click', () => { 
         const formValidator = formValidators['card-form'];
-        formValidator.resetValidation().reset();
+        formValidator.resetValidation();
         formValidator.toggleButtonState();
         popupAddCard.open();
     });
@@ -130,6 +133,7 @@ function openConfirmationPopup(card) {
         return api.deleteCard(card._id).then(() => {
             card.removeCard();
         })
+        .catch(handleError);
     });
 }
 
@@ -142,11 +146,11 @@ function hangleChangeLike(id, isActive, callback) {
         api.addLike(id).then((card) => {
             callback(card);
         })
-        .catch(handleError)
+        .catch(handleError);
     } else {
         api.deleteLike(id).then((card) => {
             callback(card);
         })
-        .catch(handleError)
+        .catch(handleError);
     }
 }
